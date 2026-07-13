@@ -118,8 +118,8 @@ int main(){
 
     char charractere {'a'}; // that's how you can store char in a variable
 
-     std::cout << "Value is: " << value << std::endl;
-     std::cout << "Value in int is: " << static_cast<int>(value) << std::endl;
+     std::cout << "Value is: " << value << std::endl; // a
+     std::cout << "Value in int is: " << static_cast<int>(value) << std::endl; // 65
 
 
 
@@ -134,7 +134,7 @@ int main(){
 
     auto var6 {76u}; //unsigned
     auto var7 {765ul}; // unsigned long
-    auto var8 {769ll}; // unsigned long long
+    auto var8 {769ull}; // unsigned long long
 
     return 0;
 
@@ -244,7 +244,7 @@ int main(){
 
     // we can use std::cout << "Hallo" << std::endl but there is another method : std::cout << "Hallo\n"
 
-    // std::cout << "Hallo word" << std::endl << std::endl; => the data is sending to a storage before going to the terminal
+    // std::cout << "Hallo word" << std::flush << std::endl; => the data is sending to a storage before going to the terminal
 
     // u can justify data to the right ot to the left by std::cout << std::right or left;
 
@@ -352,7 +352,7 @@ int main(){
 
    
 
-    // we also have 4 meyhod to do a for loop 1. is the for loop 2. is the while loop 3. is the do while loop 4. is the range based for loop
+    // we also have 4 method to do a for loop 1. is the for loop 2. is the while loop 3. is the do while loop 4. is the range based for loop
 
     // any loops contains this
     //  1. initialization 2. condition 3. increment or decrement
@@ -508,13 +508,230 @@ int main(){
 
    // the position of the star doesn't matter actually
 
-    */
+    
 
     std::cout << "Size of int is: " << sizeof(int) << std::endl; // 4 bytes
     std::cout << "Size of double is: " << sizeof(double) << std::endl; // 8 bytes
     std::cout << "Size of double* is: " << sizeof(double*) << std::endl; // 8 bytes
     std::cout << "Size of int* is: " << sizeof(int*) << std::endl; // 8 bytes
-    return 0;
+
+
+    int value {42}; // 42 is the best prgrammer number bc it's the answer of the life, the universe and everything
+    int *ptr {&value}; // store the address of value in ptr
+
+    std::cout << "Int Value is: " << value << std::endl;
+    std::cout << "His adresse is: " << ptr << std::endl;
+
+    // we can't initiazie a var with int and store in it floating point number bc it's gonna be a loss of data and we can do that by using static_cast<double>(int) to convert the int to double
+
+    //and we can store floating point number adresse in a var type int bc it's gonna be a loss of data and we can do that by using static_cast<int>(double) to convert the double to int
+
+    // Derefrecencing a pointer means accessing the value stored at the memory address that the pointer is pointing to. In C++, we can dereference a pointer using the dereference operator (*). When we dereference a pointer, we can read or modify the value stored at the memory address that the pointer is pointing to.
+
+    //Example
+
+    int * ptr1 {&value}; // store the address of value in ptr1
+    std::cout << "Value at ptr1: " << *ptr1 << std::endl;
+
+    int *value2 {nullptr};
+    int data {98};
+    value2 = &data; // store the address of data in value2
+    std::cout << "Value at value2: " << *value2 << std::endl;
+    std::cout << *value2 << " Adresse is: " << value2 << std::endl;
+
+   
+
+    // char pointers
+
+    char *charactere_p {nullptr};
+    char charactere {'A'};
+
+    charactere_p = &charactere;
+
+    std::cout << *charactere_p <<" Adresse is: " << charactere_p << std::endl;
+
+    char char_v1 {'B'};
+    charactere_p = &char_v1;
+
+    std::cout << *charactere_p <<" Adresse is: " << charactere_p << std::endl;
+
+    // we can also use a char pointer to store the address of a string literal (a string that is hard-coded into the program) in C++. A string literal is an array of characters that is terminated by a null character ('\0'). When we use a char pointer to store the address of a string literal, we can access the individual characters of the string using pointer arithmetic.
+
+    const char *string_literal {"Hello, World!"}; // store the address of the string literal in string_literal
+    std::cout << "Message: " << string_literal << std::endl;
+    std::cout << "*Message: " << *string_literal << std::endl; // print the first character of the string literal
+
+    // we can't change the value of a string literal because it's stored in read-only memory, so we should use const char* to store the address of a string literal to prevent accidental modification of the string.
+
+    // but if we want to change the value of a string literal we can use a char array to store the string literal and then we can change the value of the char array.
+
+    char array[] {"Hello, World!"}; // store the string literal in a char array
+    std::cout << "Message: " << array << std::endl;
+    array[0] = 'h'; // change the first character of the char array
+    std::cout << "Message: " << array << std::endl;
+
+    // so as a conclusion if u want to allow the user to change the value of a string literal use a char array and if u don't want to allow the user to change the value of a string literal use a const char*.
+
+    //program Memory Map 
+
+    // dynamic momory
+
+    int *num {nullptr};
+    num = new int;
+
+    *num = 77;
+
+    std::cout << std::endl;
+
+    std::cout << "Dynamic allocating memory: " << std::endl;
+    std::cout << "*num: " << *num << std::endl;
+
+    
+
+    int number {42}; // stack not in the heap
+
+    int *number_p = &number;
+
+    std::cout << std::endl;
+    std::cout << "Declaring pointer and assigning adresse:  " << std::endl;
+    std::cout << "Number: " << *number_p << std::endl;
+    std::cout << "Adresse: " << number_p << std::endl;
+    std::cout << "Adresse: " << &number << " Number : " << number << std::endl;
+
+    int *num {};
+    std::cout << "Writting into nullptr memory" <<  std::endl;
+    *num = 42;
+    std::cout << "Done" << std::endl;
+
+    
+
+   // Dynamic heap memory allocation is a technique in C++ that allows us to allocate memory for variables or objects at runtime, rather than at compile time. This is useful when we don't know the size of the data we need to store until the program is running.
+
+   int *p_num {nullptr};
+
+   p_num = new int;
+
+   *p_num = 77; // store the value 77 in the memory location pointed to by p_num
+   std::cout << std::endl;
+
+   std::cout << "Dynamic allocated memory: " << std::endl;
+   std::cout << "*num: " << *p_num << std::endl;
+   std::cout << "num: " << p_num << std::endl;
+
+   delete p_num; // free the memory allocated for p_num (return memory to the os)
+   
+
+   int * num1 { new int { 42 }};
+   int *num2 {new int {}};
+   int *num3 {new int {54}};
+
+   std::cout << "Number: " << num1 << " And his adresse is: " << *num1 << std::endl;
+   std::cout << "Number: " << num2 << " And his adresse is: " << *num2 << std::endl;
+   std::cout << "Number: " << num3 << " And his adresse is: " << *num3 << std::endl;
+
+   delete num1;
+   delete num2;
+   delete num3;
+   num1 = nullptr;
+   num2 = nullptr;
+   num3 = nullptr;
+
+   
+   // dangling pointer
+
+   int *ptr_num = {new int {65}};
+   int *ptr_num0 = {ptr_num};
+
+   std::cout << "ptr_num: " << ptr_num << " -- " << *ptr_num << std::endl;
+   std::cout << "ptr_num0: " << ptr_num0 << " -- " << *ptr_num0 << std::endl;
+
+
+   // so we have two way to initialize our pointer
+
+   std::cout << std::endl;
+   std::cout << "Solution 1: " << std::endl;
+
+   int *p_num5 = new int {65};
+   std::cout << "p_num5: " << p_num5 << " -- " << *p_num5 << std::endl;
+
+   int *p_num6 = p_num5; // copy the address of p_num5 to p_num6
+   std::cout << "p_num6: " << p_num6 << " -- " << *p_num6 << std::endl;
+
+   int *p_num7 = {};
+
+    std::cout << std::endl;
+
+    if (p_num7 == nullptr){
+        std::cout << "p_num7 is a nullptr" << std::endl;
+    }else {
+        
+        std::cout << "p_num7 is not a nullptr" << std::endl;
+    }
+
+    if (!(p_num6 == nullptr)){
+        std::cout << "p_num6 is not a nullptr" << std::endl;
+
+    }
+
+    std::string res = (p_num6 == nullptr) ? "p_num6 is a nullptr" : "p_num6 is not a nullptr";
+    std::cout << res << std::endl;
+
+
+    // Case1: Unitialized pointer (nullptr) => we can check if the pointer is nullptr or not by using the if statement or the ternary operator
+
+    int *ptr_num1 = nullptr; // unitialized pointer
+    int * ptr_num2; // Dangling pointer (unitialized pointer) => we can check if the pointer is nullptr or not by using the if statement or the ternary operator
+
+    std::cout << std::endl;
+    std::cout << "Case 1 : Unintialized pointer: " << std::endl;
+    std::cout << "ptr_num1: " << ptr_num1 << std::endl;
+    std::cout << "ptr_num2: " << *ptr_num2 << std::endl; // Crash junk data
+
+    std::cout << "The Program is Ending well" << std::endl;
+
+    // so why actually the program gonna crash bc we try to access a memory that isn't our so the program doesn't jnow that memeory so it gonna crash the the prgramand this point.
+    
+
+    // also don't try that to delte a ptr and use it again without initialization
+
+    int *ptr_num3 {new int{65}};
+
+    std::cout << "Ptr_num (before delete): " << *ptr_num3 << std::endl;
+    
+    delete ptr_num3;
+
+    std::cout << "Ptr_num (after delete)" << *ptr_num3 << std::endl;
+
+     */
+
+    // No case when multiple pointer pointing to the same adresse
+
+    int *p_num {new int{8}};
+    int *p_num0 {p_num};
+
+    std::cout << "Poiter Num: " << *p_num << "  Adresse: " << p_num << std::endl;
+    std::cout << "Poiter Num: " << *p_num0 << "  Adresse: " << p_num0 << std::endl;
+
+    delete p_num;
+    std::cout << std::endl;
+
+    std::cout << "Poiter Num (after delete): " << *p_num << "  Adresse: " << p_num << std::endl;
+    std::cout << "Poiter Num (after delete): " << *p_num0 << "  Adresse: " << p_num0 << std::endl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
    
