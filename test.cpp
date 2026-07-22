@@ -2,6 +2,9 @@
 # include <string>
 # include <iomanip>
 # include <limits>
+# include <string.h>
+# include <cstring>
+# include <stdio.h>
 
 
 int main(){
@@ -702,7 +705,7 @@ int main(){
 
     std::cout << "Ptr_num (after delete)" << *ptr_num3 << std::endl;
 
-     */
+     
 
     // No case when multiple pointer pointing to the same adresse
 
@@ -718,6 +721,471 @@ int main(){
     std::cout << "Poiter Num (after delete): " << *p_num << "  Adresse: " << p_num << std::endl;
     std::cout << "Poiter Num (after delete): " << *p_num0 << "  Adresse: " << p_num0 << std::endl;
 
+    // Good thins U should absolutly try to do ever time: 
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    std::cout << std::endl;
+
+    int * ptr_num4 {new int {53}};
+
+    std::cout << std::endl;
+
+    std::cout << "Pointer Num: " << *ptr_num4 << "  Adresse: " << ptr_num4 << std::endl;
+
+    delete ptr_num4;
+    ptr_num4 = nullptr;
+
+    if (!(ptr_num4 == nullptr)){
+        std::cout << "Pointer Num: " << *ptr_num4 << "  Adresse: " << ptr_num4 << std::endl;
+    }else {
+        std::cout << "Program ending well" << std::endl;
+    }
+      
+
+    // what happen if new fails 
+    // lile this code when new fails
+
+    int  *ptr_int {new int[100000000000]};
+
+    for (size_t i{}; i < 100000000; ++i){
+        int *ptr_int0 { new int[100000]};
+    }
+      
+    // so how we can solve that problem => so we can use the exception method try except like python try and catch like js and c++ like or simply use std::nothrow setting
+
+    // for (size_t i{}; i < 100000000; ++i){
+        try{
+        int *ptr_int0 { new int[100000]};
+        } catch(std::exception& ex){
+            std::cout << "Error Happend Try aain later" << std::endl;
+            std::cout << "The Error is: " << ex.what() << std::endl;
+        }
+    }
+
+    // or Use The std::nothrow
+    // for (size_t i{}; i < 100000000; ++i){
+        int *ptr_int0 { new(std::nothrow) int[100000]};
+        if (ptr_int0 == nullptr) {
+            std::cout << "Memory Allocated Failed" << std::endl;
+
+        }else{
+            std::cout << "Memory Allocated Succeded" << std::endl;
+        }
+    }
+        
+
+    // Null pointer safety
+
+    int *ptr_num {};
+    ptr_num = new int (5);
+
+    if(!(ptr_num == nullptr)) {
+        std::cout << "Valid Adresse for this pointer" << std::endl;
+        std::cout << "ptr_Num: " << *ptr_num << std::endl;
+
+    }else {
+        std::cout << "Invalid Adresse" << std::endl;
+    }
+
+    int *ptr_num1 {};
+
+    if (ptr_num){
+        delete ptr_num;
+        ptr_num = nullptr;
+    }
+    if(!(ptr_num == nullptr)) {
+        std::cout << "Valid Adresse for this pointer" << std::endl;
+        std::cout << "ptr_Num: " << *ptr_num << std::endl;
+
+    }else {
+        std::cout << "Invalid Adresse" << std::endl;
+    }
+
+    return 0
+    
+
+    // Mrmory Leaks => it's when you lose to acces to a memory that is dynamic allocated
+
+    int *ptr_num {new int {65}};
+
+    int number = 76;
+
+    ptr_num = &number; // it loses the first adresse of 65
+
+    std::cout << "Poiter Num is: "<< *ptr_num << "  Adresse is: " << ptr_num << std::endl;
+    
+
+    int *ptr_num0 {new int {21}};
+
+    ptr_num0 = new int (43); // memeory with 21 has been leaked (lose the access to this memory) So u should do delete and reset at the first
+
+    std::cout << "Poiter Num is: " << *ptr_num0 << std::endl;
+
+    return 0;
+    
+
+    // dynamic array
+
+    size_t size {10};
+
+    double *ptr_salary {new double[size]}; // contains junk value
+
+    int *ptr_count_student {new(std::nothrow) int[size]{} }; // all the Value initialized to 0
+
+    double *ptr_scores {new(std::nothrow) double[size]{1, 2, 3, 4, 5}};
+
+    if (ptr_scores){
+        std::cout << "The Size Of The Pointer is: " << sizeof(ptr_scores) << std::endl;
+        std::cout << "Done Successefully" << std::endl;
+    }
+
+    for (size_t i{}; i < size; ++i){
+        std::cout << "Value: " << ptr_scores[i] << " : " << *(ptr_scores + i) << std::endl;
+    }
+
+    delete[] ptr_salary;
+    ptr_salary = nullptr;
+
+    delete[] ptr_count_student;
+    ptr_count_student = nullptr;
+
+    delete[] ptr_scores;
+    ptr_scores = nullptr;
+
+    
+    
+
+    // Static Array vs Dynamic array
+
+    
+    // Static Array
+    int scores[10] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    std::cout << "The Size Of The Array Is: " << std::size(scores) << std::endl;
+
+    for (auto s : scores){ // doesn't word with dynamic array
+        std::cout << "Value: " << s << std::endl;
+    }
+
+    // Dynamic Array
+
+    int *ptr_scores = new int[10] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    std::cout << "The Size Of The Array Is: " << std::size(ptr_scores) << std::endl; // Fase
+
+
+   
+
+    // REference New Chapter of cpp
+
+    int int_value = 19;
+    double double_value = 28.65;
+
+    int& reference_to_int_value {int_value};
+    double& reference_to_double_value {double_value};
+
+
+    std::cout << "int_Value: " << int_value << std::endl;
+    std::cout << "double_Value: " << double_value << std::endl;
+    std::cout << "Referenece_to_int_value: " << reference_to_int_value << std::endl;
+    std::cout << "Reference_to_double_value: " << reference_to_double_value << std::endl;
+    std::cout << "&int_Value: " << &int_value << std::endl;
+    std::cout << "édouble_Value: " << &double_value << std::endl;
+    std::cout << "&Referenece_to_int_value: " << &reference_to_int_value << std::endl;
+    std::cout << "&Reference_to_double_value: " << &reference_to_double_value << std::endl;
+    std::cout << "sizeof(int): " << sizeof(int) << std::endl;
+    std::cout << "sizeof(int&): " << sizeof(int&) << std::endl;
+    std::cout << "Size_of(reference_to_int_value): " << sizeof(reference_to_int_value) << std::endl;
+
+    std::cout << std::endl;
+
+    std::cout << "Modify Data througth referenece" << std::endl;
+
+    
+    reference_to_int_value = 23;
+
+    std::cout << "int_Value: " << int_value << std::endl;
+    std::cout << "double_Value: " << double_value << std::endl;
+    std::cout << "Referenece_to_int_value: " << reference_to_int_value << std::endl;
+    std::cout << "Reference_to_double_value: " << reference_to_double_value << std::endl;
+    std::cout << "&int_Value: " << &int_value << std::endl;
+    std::cout << "double_Value: " << &double_value << std::endl;
+    std::cout << "&Referenece_to_int_value: " << &reference_to_int_value << std::endl;
+    std::cout << "&Reference_to_double_value: " << &reference_to_double_value << std::endl;
+    std::cout << "sizeof(int): " << sizeof(int) << std::endl;
+    std::cout << "sizeof(int&): " << sizeof(int&) << std::endl;
+    std::cout << "Size_of(reference_to_int_value): " << sizeof(reference_to_int_value) << std::endl;
+
+    std::cout << std::endl;
+
+    std::cout << "Modify The data Direcetly" << std::endl;
+
+    double_value = 43.87;
+
+    std::cout << "int_Value: " << int_value << std::endl;
+    std::cout << "double_Value: " << double_value << std::endl;
+    std::cout << "Referenece_to_int_value: " << reference_to_int_value << std::endl;
+    std::cout << "Reference_to_double_value: " << reference_to_double_value << std::endl;
+    std::cout << "&int_Value: " << &int_value << std::endl;
+    std::cout << "édouble_Value: " << &double_value << std::endl;
+    std::cout << "&Referenece_to_int_value: " << &reference_to_int_value << std::endl;
+    std::cout << "&Reference_to_double_value: " << &reference_to_double_value << std::endl;
+    std::cout << "sizeof(int): " << sizeof(int) << std::endl;
+    std::cout << "sizeof(int&): " << sizeof(int&) << std::endl;
+    std::cout << "Size_of(reference_to_int_value): " << sizeof(reference_to_int_value) << std::endl;
+
+     
+
+
+     // Reference and Pointeres
+
+
+     double double_value {41.90};
+
+     double& reference_to_double_value {double_value};
+
+     double *ptr_double_value {&double_value};
+
+     std::cout << "Double Value is: " << double_value << std::endl;
+     std::cout << "Pointer Double Value is: " << *ptr_double_value << std::endl;
+     std::cout << "Reference Double Value: " << reference_to_double_value << std::endl;
+        
+    // Charactere manipulation
+
+    // check if charactere is alphanumeric
+
+    std::cout << "std checks if isalnumm: " << std::endl;
+
+    std::cout << "C is alphanumeric: " << std::isalnum('C') << std::endl;
+    
+
+    char var {'*'};
+
+    if (std::isalnum(var)){
+        std::cout << var << "is alphanumeric" <<std::endl;
+    }else {
+        std::cout << var << "isn't alphanumeric" << std::endl;
+    }
+
+    // std::isalpha
+    std::cout << std::boolalpha;
+    std::cout << std::endl;
+
+    std::cout << "std::isalpha: " << std::endl;
+
+    std::cout << "C is Alphabetic: " << std::isalpha('C') << std::endl;
+
+    std::cout << "* Is Allphabetic: " << std::isalpha('*') << std::endl;
+     
+    std::cout << std::boolalpha;
+
+    std::cout << std::endl;
+
+    std::cout << "std::isblank: " << std::endl;
+
+    char sentence[] {"Hello How are you dear"};
+
+    int cout_blank {};
+
+    for (size_t i{0}; i < std::size(sentence); ++i){
+        if (std::isblank(sentence[i])){
+            std::cout << "Found Blank at index: " << i << std::endl;
+            ++ cout_blank;
+        }
+    }
+    std::cout << "The total We foud is: " << cout_blank << std::endl;
+
+    
+
+    std::cout << std::boolalpha;
+
+    // std::uppercase && std::lowercase
+
+    std::cout << std::endl;
+
+    std::cout << "LowerCase && Uppercase: " <<std::endl;
+
+    char messages[] {"I love C++ and Python and a lot Of Programming Language"};
+
+    int uppercase {};
+    int lowercase {};
+
+    for (auto message : messages){
+        if(std::isupper(message)){
+            ++uppercase;
+        }else {
+            ++lowercase;
+        }
+    }
+    std::cout << "We Foud: " << lowercase << " lowercase and " << uppercase << " uppercase" << std::endl;
+
+    
+
+    std::cout << std::endl;
+
+    std::cout << "std::isdigit: " << std::endl;
+
+    char messages[] {"Hi I am Ayman and i am 16 years old boy i strated prgramming since age of 11"};
+
+    int cout_digit {};
+
+    for (auto message : messages) {
+        if (std::isdigit(message)){
+        ++cout_digit;
+    }
+   }
+    std::cout << "We foud: " << cout_digit << "digit in the sentence" << std::endl;
+
+    // toupper && tolower
+
+    std::cout <<std::endl;
+
+    std::cout << "To Upper and To Lower: " << std::endl;
+
+    char phrase[] {"All the Time My baby You in My Mind"};
+
+    char copy_phrase[std::size(phrase)];
+
+    for (size_t i{0}; i < std::size(phrase); ++i){
+        copy_phrase[i] = std::toupper(phrase[i]);
+    }
+
+    std::cout << "Original String: " << phrase << std::endl;
+    std::cout << "Uppecase String: " << copy_phrase << std::endl;
+
+    for (size_t i{0}; i < std::size(phrase); ++i){
+        copy_phrase[i] = std::tolower(phrase[i]);
+    }
+
+
+    std::cout << "Original String: " << phrase << std::endl;
+    std::cout << "LowerCase String: " << copy_phrase << std::endl;
+
+
+
+   // Cheking the Len
+
+   const char messages[] {"Hallo Was Machst Du Heute"};
+
+   const char* messages0[] {"Hallo Was Machst Du Heute"};
+
+   std::cout << "The len of The Message is: " << std::strlen(messages) << std::endl;
+
+   std::cout << "The sizeof the message is: " << sizeof(messages) << std::endl;
+
+    // std::cout << "The len of The Message0 is: " << std::strlen(messages0) << std::endl;
+
+   std::cout << "The sizeof the message0 is: " << sizeof(messages0) << std::endl;
+
+   // strcmp
+
+   std::cout << std::endl;
+
+   std::cout << "std::strcmp: " << std::endl;
+
+   const char* string1 {"abcccd"};
+   const char* string2 {"abcce"};
+
+   std::cout << "std::strcmp: " << string1 <<" , " << string2 << " : " << std::strcmp(string1, string2) << std::endl;
+
+   std::cout << "std::strcmp: " << string1 <<" , " << string2 << " : " << std::strcmp(string2, string1) << std::endl;
+
+   // strncmp
+
+   std::cout << std::endl;
+
+   std::cout << "std::strncmp: " << std::endl;
+
+   size_t n {4};
+
+   std::cout << "std::strncmp: " << string1 << " , " << string2 << " Take just The first " << n << " charactere " << std::strncmp(string1, string2, n) << std::endl;
+
+
+   std::cout << std::endl;
+
+   std::cout << "std::strchr: "  << std::endl;
+
+   const char *string  {"Hello How are you"};
+   char target = 'H';
+   const char *res = string;
+   int count {};
+
+   while ((res = std::strchr(res, target)) != nullptr) {
+    std::cout << "Found " << target << " starting at " << res << "\n" << std::endl;
+    ++count;
+    ++ res;
+   }
+   std::cout << "The Counter is: " << count << std::endl;
+
+
+   
+
+   std::cout << std::endl;
+
+   std::cout << "std::strrchr: " << std::endl;
+
+   char message[] {"/ayman/User/main.cpp"};
+   char *output = std::strrchr(message, '/');
+
+    if (output){
+       std::cout << output + 1 << std::endl;
+
+    }
+    */
+
+    // continue with cstring => std::strcat
+
+    std::cout << std::endl;
+
+    std::cout << "std::strcat: " << std::endl;
+
+    char destintion[50] {"Hello "};
+    char source[50] {"Word "};
+    std::strcat(destintion, source);
+    std::strcat(destintion, " How Are You");
+    std::cout << "Distination is: " << destintion << std::endl;
+
+    // don't try to defind a var like that char string [] {'h', 'e', 'l', 'l', 'o'} without putting the null terminated charactere bc u gonna catch error undefinded behevor so try to do it like that inted char string [] {'h', 'e', 'l', 'l', 'o', '\0'}
+
+    // we have also strncat that is as strncmp spicifying  current idx and also strncpy same thing 
+
+    //std::strcpy
+
+    std::cout << std::endl;
+
+    std::cout << "std::strcpy: " << std::endl;
+
+    const char* src = "C++ is The Best Programming Language bc It's The fastest One";
+    const char* destination0 = new char[std::strlen(src)+1]; // adding 1 bc of the null terminated characted the bc the strlen don't cout the null terminaed characatere
+
+    // std::strcpy(destination0, src);
+
+    std::cout << "Sizeof destination0 is: " << sizeof(destination0) << std::endl;
+    std::cout << "strlen destination0 is: " << std::strlen(destination0) << std::endl;
+    std::cout << "Sizeof destination0 is: " << destination0 << std::endl;
+
+    std::string full_name;
+    std::string subject {"My Favourite subject is math"};
+    std::string prv_subject {subject};
+
+    std::string duplicate_message (4, 'A');
+    std::string message {"Hallo How Are You", 9};
+
+    std::string greeting("Hallo Word");
+    std::string saying_smt {greeting,6, 5};
+
+    std::cout << "full_name: " << full_name << std::endl;
+    std::cout << "subject: " << subject << std::endl;
+    std::cout << "prv_subject: " << prv_subject << std::endl;
+
+    std::cout << "Message: " << duplicate_message << std::endl;
+    std::cout << "message: " << message << std::endl;
+    std::cout << "greeting: " << greeting << std::endl;
+    std::cout << "saying_smt: " << saying_smt << std::endl;
+
+
+    
 
 
 
@@ -727,7 +1195,7 @@ int main(){
 
 
 
-
+    return 0;
 
 
 
