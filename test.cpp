@@ -8,7 +8,7 @@
 
 
 int main(){
-    /*
+    
     std::cout <<"hello word" <<std::endl;
 
 
@@ -29,7 +29,7 @@ int main(){
 
 
     return 0;
-    
+    /*
 
     std::string fullname;
     int age2;
@@ -1132,7 +1132,7 @@ int main(){
        std::cout << output + 1 << std::endl;
 
     }
-    */
+  
 
     // continue with cstring => std::strcat
 
@@ -1186,7 +1186,7 @@ int main(){
 
 
     
-
+      */
 
 
 
